@@ -1,0 +1,141 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Products | Abidin Tech International</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+  rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" 
+  rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      height: 100%;
+    }
+    .product-card img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .summary-box {
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#dashboard.html">
+      <i class="bi bi-pc-display"></i> Abidin Tech International
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMenu">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="#dashboard.html">Beranda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#aboutus.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#product.html">Product</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container py-5">
+  <h2 class="text-center mb-4">Computer Products</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="product-card">
+        <img src="mouse.png">
+        <h5>Mouse</h5>
+        <p>Rp 150.000</p>
+        <button class="btn btn-primary" 
+        onclick="tambahProduk('Mouse',150000)">Beli</button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="product-card">
+        <img src="headphone.png">
+        <h5>Headphone</h5>
+        <p>Rp 150.000</p>
+        <button class="btn btn-primary" 
+        onclick="tambahProduk('Headphone',150000)">Beli</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="product-card">
+        <img src="speaker.png">
+        <h5>Speaker</h5>
+        <p>Rp 100.000</p>
+        <button class="btn btn-primary" 
+        onclick="tambahProduk('Speaker',100000)">Beli</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-8 mx-auto">
+      <div class="summary-box">
+        <h4>Detail Belanja</h4>
+        <div id="itemList"></div>
+        <hr>
+        <h5>Total Harga:</h5>
+        <h3 id="totalPrice">Rp 0</h3>
+        <button class="btn btn-success w-100 mt-3" 
+        onclick="bayarSekarang()">Bayar Sekarang</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let keranjang = {};
+  let totalBelanja = 0;
+  let daftarItem = document.getElementById("itemList");
+  let tampilTotal = document.getElementById("totalPrice");
+  function tambahProduk(namaBarang, hargaBarang) {
+    if (keranjang[namaBarang]) {
+      keranjang[namaBarang].jumlah += 1;
+    } else {
+      keranjang[namaBarang] = {
+        jumlah: 1,
+        harga: hargaBarang
+      };
+    }
+    totalBelanja += hargaBarang;
+    tampilkanKeranjang();
+  }
+  function tampilkanKeranjang() {
+    daftarItem.innerHTML = "";
+    for (let namaBarang in keranjang) {
+      let data = keranjang[namaBarang];
+      let baris = document.createElement("div");
+      baris.innerText =
+        namaBarang + " x" + data.jumlah +
+        " = Rp " + (data.jumlah * data.harga).toLocaleString();
+      daftarItem.appendChild(baris);
+    }
+
+    tampilTotal.innerText = "Rp " + totalBelanja.toLocaleString();
+  }
+  function bayarSekarang() {
+    alert("Terima kasih sudah berbelanja!");
+  }
+</script>
+</body>
+</html>
